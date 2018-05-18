@@ -14,7 +14,8 @@
   </script>
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.0.0/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-UU2jkdv1M9UEjLje/kygVxqMBq9Jrg9z+Gqvw972H6BqKTzDvLaRJfK7PnzLM4SI" crossorigin="anonymous">
 
-  <div *ngIf="user.getuserLoggedin()">
+  <div *ngIf="user.getLog()">
+    <!-- <div>{{user.getWelcome()}}</div> -->
   <!-- <div *ngIf="welmsg"> -->
   <!-- <app-login-form (messageEvent)="recieveMessage($event)" class="ng-hide"></app-login-form> -->
 <!-- </div> -->
@@ -30,9 +31,11 @@
         <li class="nav-item active">
           <a class="nav-link" routerLink="/dashboard">Home <span class="sr-only">(current)</span></a>
         </li>
+        <div *ngIf="user.getHideFetch()">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/features']">Features</a>
         </li>
+      </div>
         <li class="nav-item">
           <a class="nav-link" routerLink="/fetchdata">Devices</a>
         </li>

@@ -20,6 +20,7 @@ import { FetchdataComponent } from './fetchdata/fetchdata.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DeviceDiscoveryComponent } from './device-discovery/device-discovery.component';
 import { DataService } from './data.service';
+import { LocalStorageModule } from '@ngx-pwa/local-storage';
 
 
 //import {AppRoutingModule} from './app-routing.module';
@@ -93,6 +94,7 @@ const appRoutes:Routes=[
     FormsModule,
     HttpModule,
     ChartsModule,
+    LocalStorageModule,
     NgMultiSelectDropDownModule.forRoot()
     //AppRoutingModule
   ],

@@ -63,19 +63,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(express.bodyParser());
 
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 app.post("/login", function (request, response) {
   //console.log(request.body.username);
   var uname=request.body.username;
   var pass=request.body.password;
-  server2.getLoginInfo(uname,function(data){
+  server2.getLoginInfo(uname,pass,function(data){
     console.log(data);
     response.send(data);
   });

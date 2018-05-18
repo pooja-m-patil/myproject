@@ -14,10 +14,11 @@ export class LoginFormComponent implements OnInit {
   public model=new Model();
   loginObj:object={};
   
+  
   constructor(private router:Router, private user:UserService,private http: Http) { }
 
   ngOnInit() {
-    this.sendMessage();
+    //this.sendMessage();
   }
   
   loginUser=function(e) {
@@ -34,20 +35,36 @@ export class LoginFormComponent implements OnInit {
 
     this.http.post('http://localhost:3000/display/login', this.loginObj)
         .subscribe((res:Response) =>{
-        var temp=res['_body'];
-          
-          this.user.setUserLoggedIn();
-          console.log("id"+temp);
-
-         this.model.message="Welcome "+temp;
-          this.model.welmsg=true;
-          if(temp==this.model.uname){
-          this.router.navigate(['dashboard']);
+          if(res){
+            console.log(this.user.getLog());
+            this.user.setLog();
+            console.log(this.model.uname);
+            if(this.model.uname=='manager'){
+              this.user.setWelcome(this.model.uname);
+              console.log(this.user.getHideFetch());
+              
+            }
+            this.router.navigate(['dashboard']);
+            console.log(this.user.getLog());
           }
           else{
             
-            this.router.navigate(['graph']);
           }
+        var temp=res['_body'];
+          
+        
+          console.log("id"+temp);
+          
+         this.model.message="Welcome "+temp;
+          this.model.welmsg=true;
+          console.log(temp);
+          // if(temp=='admin'){
+          // this.router.navigate(['dashboard']);
+          // }
+          // else{
+            
+          //   this.router.navigate(['graph']);
+          // }
           
           
           return res;
@@ -62,9 +79,9 @@ export class LoginFormComponent implements OnInit {
     // }
   }
   
-  @Output() messageEvent = new EventEmitter<string>();
+  // @Output() messageEvent = new EventEmitter<string>();
 
-  sendMessage(){
-    this.messageEvent.emit(this.model.message)
-  }
+  // sendMessage(){
+  //   this.messageEvent.emit(this.model.message)
+  // }
 }
