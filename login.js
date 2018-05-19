@@ -75,10 +75,9 @@ var options = { method: 'POST',
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
 
-  console.log(body.docs);
-  if(body.docs){
-    callback(true);
-  }
+  console.log(body);
+    callback(body.bookmark);
+  
 });
 
 }

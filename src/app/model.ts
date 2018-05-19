@@ -14,4 +14,5 @@ isAdded:boolean=false;
   isaddToggle:boolean=false;
   visible:boolean=false;
   welmsg:boolean=true;
+  welcome:boolean=false;
 }

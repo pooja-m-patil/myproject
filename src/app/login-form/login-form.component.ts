@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { Http, Response, Headers } from '@angular/http';
 import { Model } from '../model';
+import { empty } from 'rxjs/Observer';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private router:Router, private user:UserService,private http: Http) { }
 
   ngOnInit() {
-    //this.sendMessage();
+   //this.model.welcome=false;
   }
   
   loginUser=function(e) {
@@ -35,20 +36,18 @@ export class LoginFormComponent implements OnInit {
 
     this.http.post('http://localhost:3000/display/login', this.loginObj)
         .subscribe((res:Response) =>{
-          if(res){
+          console.log(res);
+          var temp=res['_body'];
+          if(temp!="nil"){
             console.log(this.user.getLog());
             this.user.setLog();
             console.log(this.model.uname);
-            if(this.model.uname=='manager'){
-              this.user.setWelcome(this.model.uname);
-              console.log(this.user.getHideFetch());
-              
-            }
+            this.user.setWelcome(this.loginObj.username);
             this.router.navigate(['dashboard']);
             console.log(this.user.getLog());
           }
           else{
-            
+            console.log("Username or Password incorrect. Please try again");
           }
         var temp=res['_body'];
           

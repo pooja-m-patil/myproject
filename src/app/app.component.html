@@ -14,8 +14,8 @@
   </script>
   <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.0.0/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-UU2jkdv1M9UEjLje/kygVxqMBq9Jrg9z+Gqvw972H6BqKTzDvLaRJfK7PnzLM4SI" crossorigin="anonymous">
 
-  <div *ngIf="user.getLog()">
-    <!-- <div>{{user.getWelcome()}}</div> -->
+  <div *ngIf="user.getLog()=='navbar'">
+    <div>Welcome {{user.getWelcome()}}</div>
   <!-- <div *ngIf="welmsg"> -->
   <!-- <app-login-form (messageEvent)="recieveMessage($event)" class="ng-hide"></app-login-form> -->
 <!-- </div> -->
@@ -52,9 +52,11 @@
           <a class="nav-link" routerLink="/discoverdevices">Discover Devices</a>
         </li> -->
        </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <a class="nav-link" href="/">Logout</a>
-      </form>
+      <!-- <form class="form-inline my-2 my-lg-0" ng-submit="user.logout()"> -->
+        <!-- <a class="nav-link" href="/">Logout</a> -->
+        <!-- <button (click)="user.logout()" ng-href="/">Logout</button> -->
+        <a href="/" (click)="user.logout()">Logout</a>
+      <!-- </form> -->
     </div>
   </nav>
   <br>
