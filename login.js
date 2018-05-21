@@ -1,7 +1,10 @@
 var cfenv = require("cfenv");
 var request = require("request");
 var login;
-
+var bcrypt=require('bcrypt-nodejs');
+var salt = bcrypt.genSaltSync(10);
+var LocalStrategy=require('passport-local').Strategy;
+const passport = require('passport')
 
 // load local VCAP configuration  and service credentials
 var vcapLocal;
@@ -57,9 +60,11 @@ if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
 
 exports.getLoginInfo=function(uname,pass,callback)
 {
+  console.log("function");
+
   var request = require("request");
 
-var options = { method: 'POST',
+  var options = { method: 'POST',
   url: 'https://722fa7b8-0c41-4d59-ac8c-1c02d25eaef5-bluemix.cloudant.com/login/_find',
   headers: 
    { 'postman-token': '18067db6-21b2-15be-7192-1a7b93b4d29b',
@@ -67,17 +72,21 @@ var options = { method: 'POST',
      'content-type': 'application/json',
      authorization: 'Basic NzIyZmE3YjgtMGM0MS00ZDU5LWFjOGMtMWMwMmQyNWVhZWY1LWJsdWVtaXg6YjdkZGQyOGJmNzU1ODk1Nzg4NjA3NDU3YmRmMjgyZGJmNzJkY2EzMTg3YzA1ZDIwMTZjYjAzNGU5MDI1MDFhNw==' },
   body: 
-   { selector: { _id: { '$gt': '0' }, username: uname, password: pass },
+   { selector: { _id: { '$gt': '0' }, username: uname},
      fields: [],
      sort: [ { _id: 'asc' } ] },
-  json: true };
+      json: true };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-
-  console.log(body);
-    callback(body.bookmark);
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    console.log(body.docs[0].password);
   
+    //let hash = bcrypt.hashSync(pass,salt);
+    //console.log(hash);
+    var pwd=body.docs[0].password;
+  
+    let status=bcrypt.compareSync(pass,pwd);
+    callback(status);
 });
-
+ 
 }

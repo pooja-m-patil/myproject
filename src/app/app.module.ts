@@ -21,6 +21,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DeviceDiscoveryComponent } from './device-discovery/device-discovery.component';
 import { DataService } from './data.service';
 import { LocalStorageModule } from '@ngx-pwa/local-storage';
+import { DevicetypeComponent } from './devicetype/devicetype.component';
 
 
 //import {AppRoutingModule} from './app-routing.module';
@@ -66,6 +67,11 @@ const appRoutes:Routes=[
   path:'devicediscovery',
   //canActivate:[AuthguardGuard],
   component:DeviceDiscoveryComponent
+},
+{
+  path:'devicetype',
+  //canActivate:[AuthguardGuard],
+  component:DevicetypeComponent
 }
 
 ]
@@ -85,6 +91,7 @@ const appRoutes:Routes=[
     FeaturesComponent,
     FetchdataComponent,
     DeviceDiscoveryComponent,
+    DevicetypeComponent,
     
   ],
   imports: [

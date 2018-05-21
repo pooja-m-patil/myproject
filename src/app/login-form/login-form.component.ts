@@ -38,7 +38,8 @@ export class LoginFormComponent implements OnInit {
         .subscribe((res:Response) =>{
           console.log(res);
           var temp=res['_body'];
-          if(temp!="nil"){
+          if(temp=='true'){
+            console.log(temp);
             console.log(this.user.getLog());
             this.user.setLog();
             console.log(this.model.uname);
@@ -48,6 +49,7 @@ export class LoginFormComponent implements OnInit {
           }
           else{
             console.log("Username or Password incorrect. Please try again");
+            this.model.errmsg="Username or Password incorrect. Please try again"
           }
         var temp=res['_body'];
           
