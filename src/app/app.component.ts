@@ -47,7 +47,7 @@ export class AppComponent implements OnInit,OnDestroy{
   
   
   ngOnInit() {
-   
+   //this.user.getCount();
   }
   ngOnDestroy() {
    

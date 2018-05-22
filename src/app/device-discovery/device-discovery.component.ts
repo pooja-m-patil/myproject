@@ -4,6 +4,7 @@ import * as io from 'socket.io-client';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { DataService } from '../data.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-device-discovery',
@@ -22,9 +23,11 @@ export class DeviceDiscoveryComponent implements OnInit {
   interval: any;
   msg:string;
   showdiv:boolean=false;
+  
 
-  constructor(private http:Http,private dataService: DataService) {
+  constructor(private http:Http,private dataService: DataService,private user:UserService) {
     this.stockQuote=[];
+    
    }
 
   discdevice=function(id){
@@ -98,6 +101,10 @@ export class DeviceDiscoveryComponent implements OnInit {
       console.log(this.flag);
       if(this.flag==0){
        this.stockQuote.push(quote);
+       this.user.setCount();
+       this.user.settingCount();
+       console.log(this.user.getCount());
+       console.log(this.user.returnCount());
       }
     })
       console.log(this.stockQuote);
@@ -118,6 +125,7 @@ export class DeviceDiscoveryComponent implements OnInit {
 
   ngOnDestroy() {
     clearInterval(this.interval);
+    this.user.resetCount();
     //this.sub.unsubscribe();
   }
 

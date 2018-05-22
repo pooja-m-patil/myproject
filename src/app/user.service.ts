@@ -8,11 +8,14 @@ export class UserService {
   private username;
   private ishide;
   private key='';
+  private count;
+  private showCount=false;
 
   constructor(private router:Router) {
     this.isUserLoggedIn=false;
     this.key='';
     this.username='admin';
+    this.count=0;
    
    }
 
@@ -58,4 +61,26 @@ export class UserService {
   getWelcome(){
     return localStorage.getItem(this.username);
  }
+
+ setCount(){
+   this.count++;
+ }
+
+ getCount(){
+   return this.count;
+ }
+
+ resetCount(){
+  this.showCount=false;
+  this.count=0;
+}
+
+  settingCount(){
+  this.showCount=true;
+}
+
+returnCount(){
+  return this.showCount;
+}
+
 }

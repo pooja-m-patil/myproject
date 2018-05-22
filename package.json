@@ -33,6 +33,7 @@
     "express": "^3.21.2",
     "express-validation": "^1.0.2",
     "http": "0.0.0",
+    "ionic-angular": "^3.9.2",
     "joi": "^13.1.2",
     "ng-multiselect-dropdown": "^0.1.8",
     "ng2-accordion": "0.0.15",
