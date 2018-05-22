@@ -19,8 +19,13 @@ export class DeviceDiscoveryComponent implements OnInit {
   temp:any
   obj:object;
   flag:number;
+  interval: any;
+  msg:string;
+  showdiv:boolean=false;
 
-  constructor(private http:Http,private dataService: DataService) { }
+  constructor(private http:Http,private dataService: DataService) {
+    this.stockQuote=[];
+   }
 
   discdevice=function(id){
     console.log("hello");
@@ -61,36 +66,59 @@ export class DeviceDiscoveryComponent implements OnInit {
     
   }
 
-  
+  getDevices=function(){
+
+    if(this.stockQuote.length==0){
+      console.log("no dev");
+      this.msg="No devices available";
+      this.stockQuote=[];
+    }
+    
+    this.sub = this.dataService.getQuotes()
+    .subscribe(quote => {
+      console.log(quote);
+      this.flag=0;
+      this.showdiv=true;
+      //console.log(this.stockQuote.length);
+     if(quote.event=='stop'){
+       console.log("Remove from array");
+       for(let i=0;i<this.stockQuote.length;i++)
+      {
+        if(quote.devId==this.stockQuote[i]){
+          this.stockQuote.splice(i);
+        }
+      }
+     }
+      for(let i=0;i<this.stockQuote.length;i++)
+      {
+        if(quote==this.stockQuote[i]){
+          this.flag=this.flag+1;
+        }
+      }
+      console.log(this.flag);
+      if(this.flag==0){
+       this.stockQuote.push(quote);
+      }
+    })
+      console.log(this.stockQuote);
+  }
 
   ngOnInit() {
    
-    this.http.post("http://localhost:3000","").subscribe(res=>{
-      console.log(res);
-      this.flag=0;
-      this.sub = this.dataService.getQuotes()
-      .subscribe(quote => {
-        console.log(quote);
-        for(let i=0;i<this.stockQuote.length;i++)
-        {
-          if(quote==this.stockQuote[i]){
-            this.flag=this.flag+1;
-          }
-        }
-        console.log(this.flag);
-        if(this.flag==0){
-         this.stockQuote.push(quote);
-        }
-      });
+    this.getDevices();
 
-      
+   this.interval = setInterval(()=>{
+     console.log("printing from ngOnInit");
 
-      console.log(this.stockQuote);
-    })
+     this.getDevices();
+
+  },5000);
+
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    clearInterval(this.interval);
+    //this.sub.unsubscribe();
   }
 
 }

@@ -19,10 +19,21 @@ export class DataService {
   getQuotes() : Observable<any> {
     this.socket = socketIo('http://192.168.31.133:3000');
 
-    this.socket.on('message', (res) => {
-      this.observer.next(res.devId);
-      console.log(res.devId);
-    });
+  this.socket.on('message', (res) => {
+    //   if(res.event){
+    //   this.observer.next(res.event);
+    //   this.observer.next(res.devId);
+    //   console.log(res);
+    // }
+    //   else{
+        this.observer.next(res.devId);
+      //}
+  });
+
+    // this.socket.on('stop', (res) => {
+    //   this.observer.next(res.devId);
+    //   console.log(res.devId);
+    // });
 
     return this.createObservable();
   }

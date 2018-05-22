@@ -63,9 +63,6 @@ app.post("/",function(req,res){
     console.log(deviceId);
     if(temp==deviceId){
     
-      socket.emit('disconnect', 
-      {devId:"disconnected"}
-    )
     res.send(auth);
     }
     else{
@@ -90,6 +87,15 @@ app.post("/",function(req,res){
 }
 })
 
+app.post('/stop',function(req,res){
+  var dId=req.body.deviceId;
+  var event=req.body.event;
+console.log("stop event");
+  io.on('connection',(socket)=>{
+  socket.emit('message', 
+      {devId:dId,event:event})
+  });
+})
 
 //  var port = process.env.PORT || 3000
 //  app.listen(port, function() {
