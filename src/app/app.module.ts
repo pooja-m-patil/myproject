@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,12 +22,18 @@ import { DeviceDiscoveryComponent } from './device-discovery/device-discovery.co
 import { DataService } from './data.service';
 import { LocalStorageModule } from '@ngx-pwa/local-storage';
 import { DevicetypeComponent } from './devicetype/devicetype.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 //import {AppRoutingModule} from './app-routing.module';
 //import { Model } from './model';
 
 const appRoutes:Routes=[
+  
+  {
+    path:'signup',
+    component:SignupComponent
+  },
   {
     path:'',
     component:LoginFormComponent
@@ -92,6 +98,7 @@ const appRoutes:Routes=[
     FetchdataComponent,
     DeviceDiscoveryComponent,
     DevicetypeComponent,
+    SignupComponent,
     
   ],
   imports: [
@@ -99,6 +106,7 @@ const appRoutes:Routes=[
     //RouterModule.forRoot(dashRoutes),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     ChartsModule,
     LocalStorageModule,

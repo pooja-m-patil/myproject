@@ -31,7 +31,7 @@ if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
   }
 
   //database name
-  var dbName = 'login';
+  var dbName = 'register';
 
   // Create a new "mydb" database.
   cloudant.db.create(dbName, function(err, data) {
@@ -65,28 +65,32 @@ exports.getLoginInfo=function(uname,pass,callback)
   var request = require("request");
 
   var options = { method: 'POST',
-  url: 'https://722fa7b8-0c41-4d59-ac8c-1c02d25eaef5-bluemix.cloudant.com/login/_find',
+  url: 'https://722fa7b8-0c41-4d59-ac8c-1c02d25eaef5-bluemix.cloudant.com/register/_find',
   headers: 
-   { 'postman-token': '18067db6-21b2-15be-7192-1a7b93b4d29b',
+   { 'postman-token': '40968373-8aee-480d-1f8d-590ab69b704b',
      'cache-control': 'no-cache',
      'content-type': 'application/json',
      authorization: 'Basic NzIyZmE3YjgtMGM0MS00ZDU5LWFjOGMtMWMwMmQyNWVhZWY1LWJsdWVtaXg6YjdkZGQyOGJmNzU1ODk1Nzg4NjA3NDU3YmRmMjgyZGJmNzJkY2EzMTg3YzA1ZDIwMTZjYjAzNGU5MDI1MDFhNw==' },
   body: 
-   { selector: { _id: { '$gt': '0' }, username: uname},
-     fields: [],
+   { selector: { _id: { '$gt': '0' }, Username: uname },
      sort: [ { _id: 'asc' } ] },
-      json: true };
+  json: true };
 
   request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    console.log(body.docs[0].password);
+   if (error) throw new Error(error);
+
+    console.log(body);
+    if(body.bookmark=='nil'){
+      callback(false);
+    }
+    else{
   
     //let hash = bcrypt.hashSync(pass,salt);
     //console.log(hash);
-    var pwd=body.docs[0].password;
+    var pwd=body.docs[0].Password;
   
     let status=bcrypt.compareSync(pass,pwd);
     callback(status);
-});
- 
+    }
+  });
 }

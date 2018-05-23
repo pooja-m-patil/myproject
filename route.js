@@ -11,6 +11,7 @@ var server1=require('./graphfunction');
 var disc=require('./discovery');
 var map=require('./map.js');
 var city=require('./city.js');
+var reg=require('./register.js');
 
     
 var vcapLocal;
@@ -76,6 +77,18 @@ app.post("/login", function (request, response) {
   var uname=request.body.username;
   var pass=request.body.password;
   server2.getLoginInfo(uname,pass,function(data){
+    console.log(data);
+    response.send(data);
+  });
+});
+
+app.post("/register", function (request, response) {
+  //console.log(request.body.username);
+  var uname=request.body.email;
+  var role=request.body.role;
+  var pass1=request.body.pass1;
+console.log(uname+" "+role+" "+pass1);
+  reg.registerUser(uname,role,pass1,function(data){
     console.log(data);
     response.send(data);
   });

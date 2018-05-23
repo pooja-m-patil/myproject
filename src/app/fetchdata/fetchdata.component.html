@@ -17,7 +17,7 @@
           <td>{{device.deviceId | json}}</td>
           <td>{{device.typeId | json}}</td>
           <td (click)="deleteDevice(device.deviceId)" id="i" ng-value="myVar"><button type="button" class="btn btn-danger disabled">DELETE</button></td>
-          <td (click)="showAuth(device)"><button type="button" class="btn btn-info">Show Authentication Token</button></td>
+          <td (click)="showAuth(device)"><button type="button" class="btn btn-primary">Show Authentication Token</button></td>
           <td >{{device['authToken']}}</td>
         </tr>
       </tbody>
