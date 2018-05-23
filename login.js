@@ -72,7 +72,7 @@ exports.getLoginInfo=function(uname,pass,callback)
      'content-type': 'application/json',
      authorization: 'Basic NzIyZmE3YjgtMGM0MS00ZDU5LWFjOGMtMWMwMmQyNWVhZWY1LWJsdWVtaXg6YjdkZGQyOGJmNzU1ODk1Nzg4NjA3NDU3YmRmMjgyZGJmNzJkY2EzMTg3YzA1ZDIwMTZjYjAzNGU5MDI1MDFhNw==' },
   body: 
-   { selector: { _id: { '$gt': '0' }, Username: uname },
+   { selector: { _id: { '$gt': '0' }, _id: uname },
      sort: [ { _id: 'asc' } ] },
   json: true };
 

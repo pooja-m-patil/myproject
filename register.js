@@ -68,7 +68,7 @@ exports.registerUser=function(uname,role,pass,callback)
      'cache-control': 'no-cache',
      'content-type': 'application/json',
      authorization: 'Basic NzIyZmE3YjgtMGM0MS00ZDU5LWFjOGMtMWMwMmQyNWVhZWY1LWJsdWVtaXg6YjdkZGQyOGJmNzU1ODk1Nzg4NjA3NDU3YmRmMjgyZGJmNzJkY2EzMTg3YzA1ZDIwMTZjYjAzNGU5MDI1MDFhNw==' },
-  body: { Username: uname, Role: role, Password: hash },
+  body: { _id: uname, Role: role, Password: hash },
   json: true };
 
   request(options, function (error, response, body) {
