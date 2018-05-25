@@ -46,7 +46,7 @@ export class DeviceDiscoveryComponent implements OnInit {
       "added":this.temp,
       "id":id
     }
-     this.http.post("http://localhost:3000",this.obj).subscribe((res:Response) => {
+     this.http.post("http://localhost:3000/remoteApp",this.obj).subscribe((res:Response) => {
       // for(let i=0;i<this.stockQuote.length;i++){
       //   if(id==this.stockQuote[i]){
       //     for(let j=i;j<this.stockQuote.length;j++){
@@ -82,16 +82,16 @@ export class DeviceDiscoveryComponent implements OnInit {
       console.log(quote);
       this.flag=0;
       this.showdiv=true;
-      //console.log(this.stockQuote.length);
-     if(quote.event=='stop'){
-       console.log("Remove from array");
-       for(let i=0;i<this.stockQuote.length;i++)
-      {
-        if(quote.devId==this.stockQuote[i]){
-          this.stockQuote.splice(i);
-        }
-      }
-     }
+    //   //console.log(this.stockQuote.length);
+    //  if(quote.event=='stop'){
+    //    console.log("Remove from array");
+    //    for(let i=0;i<this.stockQuote.length;i++)
+    //   {
+    //     if(quote.devId==this.stockQuote[i]){
+    //       this.stockQuote.splice(i);
+    //     }
+    //   }
+    //  }
       for(let i=0;i<this.stockQuote.length;i++)
       {
         if(quote==this.stockQuote[i]){
@@ -112,14 +112,52 @@ export class DeviceDiscoveryComponent implements OnInit {
 
   ngOnInit() {
    
-    this.getDevices();
+  //   this.getDevices();
 
-   this.interval = setInterval(()=>{
-     console.log("printing from ngOnInit");
+  //  this.interval = setInterval(()=>{
+  //    console.log("printing from ngOnInit");
 
-     this.getDevices();
+  //    this.getDevices();
 
-  },5000);
+  // },5000);
+
+  if(this.stockQuote.length==0){
+    console.log("no dev");
+    this.msg="No devices available";
+    this.stockQuote=[];
+  }
+  
+  this.sub = this.dataService.getQuotes()
+  .subscribe(quote => {
+    console.log(quote);
+    this.flag=0;
+    this.showdiv=true;
+  //   //console.log(this.stockQuote.length);
+  //  if(quote.event=='stop'){
+  //    console.log("Remove from array");
+  //    for(let i=0;i<this.stockQuote.length;i++)
+  //   {
+  //     if(quote.devId==this.stockQuote[i]){
+  //       this.stockQuote.splice(i);
+  //     }
+  //   }
+  //  }
+    for(let i=0;i<this.stockQuote.length;i++)
+    {
+      if(quote==this.stockQuote[i]){
+        this.flag=this.flag+1;
+      }
+    }
+    console.log(this.flag);
+    if(this.flag==0){
+     this.stockQuote.push(quote);
+     this.user.setCount();
+     this.user.settingCount();
+     console.log(this.user.getCount());
+     console.log(this.user.returnCount());
+    }
+  })
+    console.log(this.stockQuote);
 
   }
 

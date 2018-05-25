@@ -15,7 +15,7 @@
   
   
   <ng-multiselect-dropdown *ngIf="dropdownAreaList.length"
-      [placeholder]="'Select Areas (atmost 2)'"
+      (placeholder)="'Select Areas (atmost 2)'"
       [data]="dropdownAreaList"
       [(ngModel)]="selectedAreaItems"
       [settings]="dropdownSettings"

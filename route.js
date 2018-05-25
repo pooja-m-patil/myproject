@@ -12,6 +12,7 @@ var disc=require('./discovery');
 var map=require('./map.js');
 var city=require('./city.js');
 var reg=require('./register.js');
+var type=require('./devicetypes');
 
     
 var vcapLocal;
@@ -215,6 +216,12 @@ app.delete("/del", function (request, response) {
     response.send("200 ok");
   });
 
+  app.get("/dtype", function (request, response) {
+    type.getTypes(function(data){
+      //console.log(data);
+      response.send(data);
+    });
+  });
   
   
 module.exports=app;

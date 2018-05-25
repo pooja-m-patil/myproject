@@ -8,6 +8,10 @@ import { Model } from '../model';
   styleUrls: ['./add-device.component.css']
 })
 export class AddDeviceComponent implements OnInit {
+
+  types=[];
+
+
   public model=new Model();
   constructor(private http: Http) { }
 
@@ -33,7 +37,27 @@ export class AddDeviceComponent implements OnInit {
     console.log(this.model.auth);
   }
 
+  addType=function(type){
+    console.log(type);
+  }
+
+  selectType=function(){
+    console.log("Type");
+    
+  }
+
   ngOnInit() {
+    this.http.get("http://localhost:3000/display/dtype").subscribe((res:Response) => {
+      console.log(res);
+      var temp=res.json();
+      console.log(temp)
+      console.log(temp.results[0].id);
+      for(let i=0;i<temp.results.length;i++){
+        this.types[i]=temp.results[i].id;
+      }
+      console.log(this.types);
+
+    })
   }
 
 }

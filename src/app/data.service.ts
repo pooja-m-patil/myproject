@@ -13,11 +13,11 @@ declare var io : {
 @Injectable()
 export class DataService {
 
-  socket: Socket;
+  socket: Socket=socketIo('http://localhost:3000');
   observer: Observer<any>;
 
   getQuotes() : Observable<any> {
-    this.socket = socketIo('http://192.168.31.133:3000');
+    
 
   this.socket.on('message', (res) => {
     //   if(res.event){

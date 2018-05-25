@@ -13,7 +13,7 @@ var status;
 var auth;
 var deviceId;
 var temp;
-
+var socket1;
 
 var server=app.listen(3000, function() {
   console.log("Listening on port:3000");
@@ -43,7 +43,13 @@ app.use('/display',route);
 
 var io=socketIo(server);
   
-app.post("/",function(req,res){
+io.on('connection',(socket)=>{
+  console.log("A new WebSocket connection has been established");
+  socket1=socket;
+  //console.log(socket1);
+ })
+
+app.post("/remoteApp",function(req,res){
 
     if(req.body.deviceId){
       deviceId=req.body.deviceId;
@@ -56,7 +62,7 @@ app.post("/",function(req,res){
       temp=req.body.id;
     }
   
-    console.log(status);
+    //console.log(status);
   if(status){
     console.log(status);
     console.log(temp);
@@ -76,12 +82,12 @@ app.post("/",function(req,res){
     // disc.deviceDisc(deviceId,desc,function(data){
     //   res.send(data);
     // })
-    io.on('connection',(socket)=>{
-   //console.log("A new WebSocket connection has been established");
-    socket.emit('message', 
-      {devId:dId}
-    )
-  })
+    // io.on('connection',(socket)=>{
+//    //console.log("A new WebSocket connection has been established");
+   socket1.emit('message', 
+   {devId:dId}
+ )
+  // })
 
   res.send("");
 }
@@ -92,7 +98,7 @@ app.post('/stop',function(req,res){
   var event=req.body.event;
 console.log("stop event");
   io.on('connection',(socket)=>{
-  socket.emit('message', 
+  socket1.emit('message', 
       {devId:dId,event:event})
   });
 })
